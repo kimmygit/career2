@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
+
 <template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 70"><rect width="100" height="70" fill="#fdfcf9"/><text x="50" y="39" font-size="16" fill="#191919" text-anchor="middle" font-family="sans-serif">키미</text></svg></template>
 </head>
 <body>
@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<script src="./image-slot.js"></script>
+
 <style>
   body { margin: 0; background: oklch(99% 0.001 90); }
   a { color: oklch(15% 0.001 90); text-decoration: none; }
@@ -35,7 +35,7 @@
   </nav>
 
   <section id="hero" style="max-width: 760px; margin: 0 auto; padding: 120px 24px 100px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 28px;">
-    <image-slot id="profile" src="https://kimmygit.github.io/career/resources/profile.png" style="width: 120px; height: 120px;" shape="circle" placeholder="프로필 사진"></image-slot>
+    <img src="https://kimmygit.github.io/career/resources/profile.png" alt="김희재 프로필" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
     <div style="display: flex; flex-direction: column; gap: 14px;">
       <h1 style="margin: 0; font-size: 44px; font-weight: 900; letter-spacing: -0.02em;">김희재</h1>
       <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
@@ -87,23 +87,453 @@
     <div style="margin-bottom: 48px;">
       <div style="font-size: 15px; font-weight: 700; margin-bottom: 16px;">오프라인 강의</div>
       <div style="display: flex; flex-direction: column; gap: 8px;">
-        <sc-for list="{{ offlineYears }}" as="yr" hint-placeholder-count="3">
-          <div style="border: 1px solid oklch(90% 0.001 90); border-radius: 4px; overflow: hidden;">
-            <div onClick="{{ yr.toggle }}" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 20px; cursor: pointer; user-select: none; white-space: nowrap;">
-              <div style="font-size: 15px; font-weight: 600; white-space: nowrap;">{{ yr.year }}년 <span style="color: oklch(50% 0.001 90); font-weight: 400; font-size: 13px;">· {{ yr.count }}건</span></div>
-              <div style="font-size: 12px; color: oklch(55% 0.001 90);">{{ yr.arrow }}</div>
-            </div>
-            <sc-if value="{{ yr.expanded }}" hint-placeholder-val="{{ false }}">
-              <div style="border-top: 1px solid oklch(92% 0.001 90); padding: 4px 20px;">
-                <sc-for list="{{ yr.visibleLectures }}" as="lec" hint-placeholder-count="4">
-                  <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 0; border-bottom: {{ lec.borderBottom }};">
-                    <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">{{ lec.date }}</div>
-                    <div>
-                      <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">{{ lec.title }}</div>
-                      <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">{{ lec.client }} · {{ lec.type }} · {{ lec.info }}</div>
-                    </div>
-                  </div>
-                </sc-for>
+        
+    <div class="offline-year-group" style="border: 1px solid oklch(90% 0.001 90); border-radius: 4px; overflow: hidden; margin-bottom: 12px;">
+      <div onclick="var c = this.nextElementSibling; var a = this.querySelector('.arrow-icon'); if (c.style.display === 'none') { c.style.display = 'block'; a.textContent = '▾'; } else { c.style.display = 'none'; a.textContent = '▸'; }" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; background: oklch(98% 0.001 90); cursor: pointer; user-select: none;">
+        <div style="font-size: 14px; font-weight: 600;">2026년 (34회)</div>
+        <div class="arrow-icon" style="font-size: 12px; color: oklch(55% 0.001 90);">▾</div>
+      </div>
+      <div class="offline-lectures-container" style="display: block; border-top: 1px solid oklch(90% 0.001 90);">
+        
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">10월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">바로 써먹는 생성형 AI 영상 완벽 가이드 (예정)</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">강동숲속도서관 · 기관 · 8시간 (2h×4)</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">09월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">Notefolio AI + 포토샵 스프린트 10기 (예정)</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">스터닝 · 기관 · 8시간 (4h×2)</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">09월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">구직자를 위한 AI숏폼 영상 제작 특강 (예정)</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">경기도일자리재단 · 기관 · 12시간 (4h×3)</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">08월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">키미의 하루 만에 끝내는 AI 마스터: AI로 나만의 AI 음악 만들기 (예정)</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">현대백화점 무역센터점 · 문화센터 · 2시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">08월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">키미의 하루 만에 끝내는 AI 마스터: AI로 이미지와 영상만들기 (예정)</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">현대백화점 무역센터점 · 문화센터 · 2시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">08월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">AI 업무활용 특강 (예정)</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">법원공무원교육원 · 기관 · 4시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">08월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">나만의 이미지로 완성하는 AI 영상 제작 (예정)</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">김포문화재단 · 기관 · 8시간 (2h×4)</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">07월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">수기치인 시민의식 생성형 AI 콘텐츠 제작 워크숍 (예정)</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">성균관대학교 · 학교 · 4시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">07월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">키미의 하루 만에 끝내는 AI 마스터: AI로 업무 생산성 업그레이드하기</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">현대백화점 무역센터점 · 문화센터 · 2시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">07월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">키미의 하루만에 끝내는 AI 이미지·영상 만들기</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">현대백화점 천호점 · 문화센터 · 2시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">07월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">키미의 하루만에 끝내는 AI 이미지·영상 만들기</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">현대백화점 신촌점 · 문화센터 · 2시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">07월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">구직자를 위한 AI숏폼 영상 제작 특강</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">경기도일자리재단 · 기관 · 12시간 (4h×3)</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">06월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">키미의 하루만에 끝내는 AI 이미지·영상 만들기</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">김포문화재단 · 기관 · 3시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">06월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">바로 써먹는 생성형 AI 영상 완벽 가이드</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">강동숲속도서관 · 기관 · 8시간 (2h×4)</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">06월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">키미의 하루만에 끝내는 AI 이미지·영상 만들기</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">현대백화점 신촌점 · 문화센터 · 2시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">06월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">AI로 완성하는 캐릭터 애니메이션</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">양천도서관 · 기관 · 2시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">06월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">AI로 완성하는 우리 아이 콘텐츠</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">양천도서관 · 기관 · 2시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">05월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">AI로 완성하는 나만의 음원과 보이스</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">양천도서관 · 기관 · 2시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">05월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">AI로 완성하는 생산성 업그레이드</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">양천도서관 · 기관 · 2시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">05월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">Notefolio AI + 포토샵 스프린트 9기</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">스터닝 · 기관 · 8시간 (4h×2)</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">05월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">미래자동차 혁신융합대학사업단 서포터즈 AI 워크숍</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">아주대학교 · 학교 · 4시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">04월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">AI로 완성하는 숏폼 스토리 영상</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">양천도서관 · 기관 · 2시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">04월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">LBCC 모임_하루 만에 시작하는 무료 AI 이미지·영상 만들기</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">LBCC · 기관 · 3시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">04월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">AI로 완성하는 비주얼 콘텐츠 디자인</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">양천도서관 · 기관 · 2시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">04월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">이미지부터 음악까지, 무료 AI 영상 제작 실습(심화)</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">롯데백화점 동탄점 · 문화센터 · 2시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">04월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">처음 해보는 무료 AI 이미지·영상 만들기(입문)</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">롯데백화점 동탄점 · 문화센터 · 2시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">03월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">키미의 하루만에 끝내는 AI 이미지·영상 만들기</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">현대백화점 신촌점 · 문화센터 · 2시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">03월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">바로 써먹는 생성형 AI 이미지 완벽 가이드</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">강동숲속도서관 · 기관 · 8시간 (2h×4)</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">02월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">아이의 그림이 살아나는 AI</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">롯데백화점 동탄점 · 문화센터 · 2시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">02월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">수기치인 시민의식 생성형 AI 콘텐츠 제작 워크숍</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">성균관대학교 · 학교 · 4시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">02월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">Notefolio AI + 포토샵 스프린트 8기</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">스터닝 · 기관 · 8시간 (4h×2)</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">01월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">처음 만나는 나의 첫 AI – 무료 이미지 · 영상 실습편</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">제주대학교 · 학교 · 6시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">01월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">미드저니로 확장하는 나의 스타일, AI 이미지 · 영상(심화)</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">롯데백화점 동탄점 · 문화센터 · 2시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: none;">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">01월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">AI시대 수익의 필수 스킬, AI 이미지&영상(초급)</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">롯데백화점 동탄점 · 문화센터 · 2시간</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="offline-year-group" style="border: 1px solid oklch(90% 0.001 90); border-radius: 4px; overflow: hidden; margin-bottom: 12px;">
+      <div onclick="var c = this.nextElementSibling; var a = this.querySelector('.arrow-icon'); if (c.style.display === 'none') { c.style.display = 'block'; a.textContent = '▾'; } else { c.style.display = 'none'; a.textContent = '▸'; }" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; background: oklch(98% 0.001 90); cursor: pointer; user-select: none;">
+        <div style="font-size: 14px; font-weight: 600;">2025년 (15회)</div>
+        <div class="arrow-icon" style="font-size: 12px; color: oklch(55% 0.001 90);">▸</div>
+      </div>
+      <div class="offline-lectures-container" style="display: none; border-top: 1px solid oklch(90% 0.001 90);">
+        
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">12월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">키미의 하루만에 끝내는 5가지 AI 이미지툴 사용법</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">현대백화점 킨텍스점 · 문화센터 · 2시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">11월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">키미의 하루만에 끝내는 5가지 AI 이미지툴 사용법</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">현대백화점 무역센터점 · 문화센터 · 2시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">11월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">Notefolio AI + 포토샵 스프린트 7기</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">(주)스터닝 · 기관 · 8시간 (4h×2)</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">09월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">LBCC 셀렉트 모임_AI로 원하는 이미지 찰떡 같이 출력하기</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">LBCC · 기관 · 9시간 (3h×3)</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">09월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">마케터를 위한 AI 비주얼 메이킹 실무 클래스</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">탈잉 · 기업 (임직원) · 3시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">09월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">Notefolio AI + 포토샵 스프린트 6기</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">스터닝 · 기관 · 8시간 (4h×2)</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">08월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">이미지 생성형 AI 워크숍(기초) (재진행)</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">NE능률 · 기업 (임직원) · 3시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">07월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">이미지 생성형 AI 워크숍(기초)</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">NE능률 · 기업 (임직원) · 3시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">07월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">이미지 생성형 AI 워크숍(기초+심화)</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">NE능률 · 기업 (임직원) · 3시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">06월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">부산 디자인 페스티벌 원데이 워크숍</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">스터닝 · 기관 · 8시간 (4h×2)</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">06월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">이미지 생성형 AI 활용 학술자료 준비 워크숍 (재진행)</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">AGQC · 기관 · 3시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">06월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">Notefolio AI + 포토샵 스프린트 5기</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">스터닝 · 기관 · 5시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">04월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">Notefolio AI + 포토샵 스프린트 4기</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">스터닝 · 기관 · 5시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">03월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">이미지 생성형 AI 활용 학술자료 준비 워크숍</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">AGQC · 기관 · 3시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: none;">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">02월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">연구계획서 작성을 위한 이미지 생성형 AI 워크숍</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">고려대학교 대학원 식물생명공학과 · 학교 · 2시간</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="offline-year-group" style="border: 1px solid oklch(90% 0.001 90); border-radius: 4px; overflow: hidden; margin-bottom: 12px;">
+      <div onclick="var c = this.nextElementSibling; var a = this.querySelector('.arrow-icon'); if (c.style.display === 'none') { c.style.display = 'block'; a.textContent = '▾'; } else { c.style.display = 'none'; a.textContent = '▸'; }" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; background: oklch(98% 0.001 90); cursor: pointer; user-select: none;">
+        <div style="font-size: 14px; font-weight: 600;">2024년 (3회)</div>
+        <div class="arrow-icon" style="font-size: 12px; color: oklch(55% 0.001 90);">▸</div>
+      </div>
+      <div class="offline-lectures-container" style="display: none; border-top: 1px solid oklch(90% 0.001 90);">
+        
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">11월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">Notefolio AI + 포토샵 스프린트 3기</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">스터닝 · 기관 · 5시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: 1px solid oklch(94% 0.001 90);">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">08월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">Notefolio AI + 포토샵 스프린트 2기</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">스터닝 · 기관 · 5시간</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 16px; border-bottom: none;">
+          <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">07월</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">Notefolio AI + 포토샵 스프린트 1기</div>
+            <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">스터닝 · 기관 · 5시간</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
                 <sc-if value="{{ yr.hasMore }}" hint-placeholder-val="{{ false }}">
                   <div style="display: flex; justify-content: center; padding: 14px 0 18px;">
                     <button onClick="{{ yr.showMore }}" style="font-size: 12px; font-weight: 600; color: oklch(40% 0.001 90); background: none; border: 1px solid oklch(85% 0.001 90); border-radius: 100px; padding: 8px 18px; cursor: pointer;">더보기 (+{{ yr.remaining }})</button>
@@ -119,30 +549,58 @@
     <div style="margin-bottom: 48px;">
       <div style="font-size: 15px; font-weight: 700; margin-bottom: 16px;">온라인 강의 (VOD)</div>
       <div style="border: 1px solid oklch(90% 0.001 90); border-radius: 4px; padding: 16px 20px;">
-        <sc-for list="{{ onlineLectures }}" as="lec" hint-placeholder-count="1">
-          <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 4px 0;">
-            <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">{{ lec.date }}</div>
-            <div>
-              <div style="font-size: 14px; font-weight: 500; line-height: 1.5;"><a href="{{ lec.link }}" target="_blank">{{ lec.title }}</a></div>
-              <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">{{ lec.client }} · {{ lec.type }}</div>
-            </div>
-          </div>
-        </sc-for>
+        
+<div style="display: flex; flex-direction: column; gap: 12px;">
+  <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 4px 0;">
+    <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">2025</div>
+    <div>
+      <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">
+        <a href="https://www.taling.me/talent/61260" target="_blank" rel="noopener noreferrer" style="color: oklch(20% 0.001 90); text-decoration: underline; font-weight: 600;">AI시대 일잘러 필수 스킬 &lt;생성형 AI 완벽 가이드&gt;</a>
+      </div>
+      <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">탈잉 · VOD</div>
+    </div>
+  </div>
+</div>
+
       </div>
     </div>
 
     <div>
       <div style="font-size: 15px; font-weight: 700; margin-bottom: 16px;">대학내일 사내 강의</div>
       <div style="border: 1px solid oklch(90% 0.001 90); border-radius: 4px; padding: 4px 20px;">
-        <sc-for list="{{ inhouseLectures }}" as="lec" hint-placeholder-count="4">
-          <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 0; border-bottom: {{ lec.borderBottom }};">
-            <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">{{ lec.date }}</div>
-            <div>
-              <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">{{ lec.title }}</div>
-              <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">{{ lec.client }} · {{ lec.type }}</div>
-            </div>
-          </div>
-        </sc-for>
+        
+  <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid oklch(94% 0.001 90);">
+    <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">2026</div>
+    <div>
+      <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">생성형 AI 이미지 기초 강의</div>
+      <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">대학내일 · 사내 · 임직원 대상</div>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid oklch(94% 0.001 90);">
+    <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">2025</div>
+    <div>
+      <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">영상 PD 직군 대상 미드저니 강의</div>
+      <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">대학내일 · 사내 · 임직원 대상</div>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid oklch(94% 0.001 90);">
+    <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">2024</div>
+    <div>
+      <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">생성형 AI 기초 강의</div>
+      <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">대학내일 · 사내 · 임직원 대상</div>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 0; border-bottom: none;">
+    <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">2024</div>
+    <div>
+      <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">디자인 커뮤니케이션 강의</div>
+      <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">대학내일 · 사내 · 임직원 대상</div>
+    </div>
+  </div>
+
       </div>
     </div>
   </section>
