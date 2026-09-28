@@ -112,7 +112,7 @@
 
     <div style="margin-bottom: 48px;">
       <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
-        <div style="font-size: 15px; font-weight: 700;">오프라인 강의</div>
+        <div style="font-size: 15px; font-weight: 700;">출강 및 라이브 강의</div>
         <div style="display: flex; gap: 6px; flex-wrap: wrap;">
           <sc-for list="{{ filterTabs }}" as="tab">
             <button onClick="{{ tab.select }}" style="font-size: 12px; font-weight: {{ tab.fontWeight }}; color: {{ tab.color }}; background: {{ tab.bg }}; border: 1px solid {{ tab.border }}; border-radius: 100px; padding: 5px 12px; cursor: pointer; transition: all 0.15s ease;">
@@ -137,7 +137,18 @@
                   <div style="display: grid; grid-template-columns: 48px 1fr; gap: 16px; padding: 14px 0; border-bottom: {{ lec.borderBottom }};">
                     <div style="font-size: 12px; color: oklch(55% 0.001 90); padding-top: 2px;">{{ lec.date }}</div>
                     <div>
-                      <div style="font-size: 14px; font-weight: 500; line-height: 1.5;">{{ lec.title }}</div>
+                      <div style="font-size: 14px; font-weight: 500; line-height: 1.5; display: flex; align-items: center; flex-wrap: wrap; gap: 6px;">
+                        <span>{{ lec.title }}</span>
+                        <sc-if value="{{ lec.isOnline }}" hint-placeholder-val="{{ false }}">
+                          <span style="font-size: 11px; font-weight: 500; color: oklch(40% 0.001 90); background: oklch(95% 0.001 90); border: 1px solid oklch(86% 0.001 90); border-radius: 4px; padding: 1px 6px; line-height: 1.4;">온라인 라이브</span>
+                        </sc-if>
+                        <sc-if value="{{ lec.isUpcoming }}" hint-placeholder-val="{{ false }}">
+                          <span style="font-size: 11px; font-weight: 500; color: oklch(40% 0.001 90); background: oklch(95% 0.001 90); border: 1px solid oklch(86% 0.001 90); border-radius: 4px; padding: 1px 6px; line-height: 1.4;">예정</span>
+                        </sc-if>
+                        <sc-if value="{{ lec.isRepeat }}" hint-placeholder-val="{{ false }}">
+                          <span style="font-size: 11px; font-weight: 500; color: oklch(40% 0.001 90); background: oklch(95% 0.001 90); border: 1px solid oklch(86% 0.001 90); border-radius: 4px; padding: 1px 6px; line-height: 1.4;">재진행</span>
+                        </sc-if>
+                      </div>
                       <div style="font-size: 12px; color: oklch(55% 0.001 90); margin-top: 4px;">{{ lec.client }} · {{ lec.type }} · {{ lec.info }}</div>
                     </div>
                   </div>
@@ -248,9 +259,10 @@ class Component extends DCLogic {
   rawOffline = {
     '2026': [
       ['11월','키미의 하루 만에 끝내는 AI 마스터: AI로 업무 생산성 업그레이드하기 (예정)','현대백화점 무역센터점','문화센터','2시간'],
-      ['10월','바로 써먹는 생성형 AI 영상 완벽 가이드 (예정)','강동숲속도서관','기관','8시간 (2h×4)'],
-      ['09월','Notefolio AI + 포토샵 스프린트 10기 (예정)','스터닝','기관','8시간 (4h×2)'],
-      ['09월','구직자를 위한 AI숏폼 영상 제작 특강 (예정)','경기도일자리재단','기관','12시간 (4h×3)'],
+      ['10월','바로 써먹는 생성형 AI 영상 완벽 가이드','강동숲속도서관','기관','8시간 (2h×4)'],
+      ['09월','Notefolio AI + 포토샵 스프린트 10기','스터닝','기관','8시간 (4h×2)'],
+      ['09월','생성형 AI 활용 과학 콘텐츠 제작 실습 (온라인)','충북과학문화거점센터','기관','4시간 (2h×2)'],
+      ['09월','구직자를 위한 AI숏폼 영상 제작 특강 (재진행)','경기도일자리재단','기관','12시간 (4h×3)'],
       ['08월','키미의 하루 만에 끝내는 AI 마스터: AI로 이미지와 영상만들기','현대백화점 무역센터점','문화센터','2시간'],
       ['08월','키미의 무료 AI로 완성하는 짧은 숏폼 콘텐츠 제작','현대백화점 목동점','문화센터','2시간'],
       ['08월','AI 업무활용 특강','법원공무원교육원','기관','4시간'],
@@ -345,14 +357,37 @@ class Component extends DCLogic {
 
       const total = filtered.length;
       const visibleCount = Math.min(this.state.visibleCounts[year] || 7, total);
-      const lectures = filtered.slice(0, visibleCount).map(([date, title, client, type, info], i, arr) => ({
-        date,
-        title,
-        client,
-        type,
-        info,
-        borderBottom: i === arr.length - 1 ? 'none' : '1px solid oklch(94% 0.001 90)'
-      }));
+      const lectures = filtered.slice(0, visibleCount).map(([date, rawTitle, client, type, info], i, arr) => {
+        let isOnline = false;
+        let isUpcoming = false;
+        let isRepeat = false;
+
+        let cleanTitle = rawTitle;
+        if (cleanTitle.includes('(온라인)') || cleanTitle.includes('(온라인 라이브)') || cleanTitle.includes('[온라인]')) {
+          isOnline = true;
+          cleanTitle = cleanTitle.replace(/\((온라인|온라인 라이브)\)|\[온라인\]/g, '').trim();
+        }
+        if (cleanTitle.includes('(예정)')) {
+          isUpcoming = true;
+          cleanTitle = cleanTitle.replace(/\(예정\)/g, '').trim();
+        }
+        if (cleanTitle.includes('(재진행)')) {
+          isRepeat = true;
+          cleanTitle = cleanTitle.replace(/\(재진행\)/g, '').trim();
+        }
+
+        return {
+          date,
+          title: cleanTitle,
+          isOnline,
+          isUpcoming,
+          isRepeat,
+          client,
+          type,
+          info,
+          borderBottom: i === arr.length - 1 ? 'none' : '1px solid oklch(94% 0.001 90)'
+        };
+      });
 
       return {
         year,
